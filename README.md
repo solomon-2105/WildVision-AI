@@ -74,5 +74,3 @@ The results show that combining Zero-DCE++ enhancement with YOLOv8 detection sig
 - Smart transportation systems
 - Nighttime wildlife surveillance
 - Camera trap monitoring
-
-## Repository Structure
