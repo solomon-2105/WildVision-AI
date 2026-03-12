@@ -1,0 +1,218 @@
+/* ---- PALETTE ---- */
+:root{
+  --bg:#020406;
+  --panel:#0a0e12;
+  --panel2:#0f141a;
+  --line:#1f2a33;
+  --text:#d1d5db;
+  --muted:#6b7280;
+
+  /* phosphor green */
+  --nv:#39ff14;
+  --nv-dim:#1db954;
+}
+
+/* ---- BASE ---- */
+*{box-sizing:border-box}
+body{
+  margin:0;
+  color:var(--text);
+  font-family:system-ui,Segoe UI,Arial;
+  background:
+  radial-gradient(circle at top,#0b0f14,#020406 70%);
+  overflow-x:hidden;
+}
+
+/* scanlines */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+  repeating-linear-gradient(
+    0deg,
+    rgba(255,255,255,0.02) 0px,
+    rgba(255,255,255,0.02) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+}
+
+/* slow sweeping light */
+/* slow sweeping light */
+body::before{
+  content:"";
+  position:fixed;
+  inset:-50%;
+  background: radial-gradient(circle at center, rgba(57,255,20,0.05),transparent 60%);
+  animation:sweep 18s linear infinite;
+  
+  /* Add these two lines to fix the clicking issue */
+  pointer-events: none; 
+  z-index: 10;
+}
+
+@keyframes sweep{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
+}
+
+/* ---- NAVBAR ---- */
+.navbar{
+  background:#030507;
+  border-bottom:1px solid var(--line);
+  text-align:center;
+  padding:26px;
+  position:relative;
+}
+
+.navbar h1{
+  margin:0;
+  font-size:34px;
+  letter-spacing:2px;
+  color:var(--nv);
+  text-shadow:0 0 8px var(--nv);
+  animation:glow 3s infinite alternate;
+}
+
+@keyframes glow{
+  from{text-shadow:0 0 6px var(--nv)}
+  to{text-shadow:0 0 18px var(--nv)}
+}
+
+/* ---- GRID ---- */
+.container{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+  padding:50px 20px;
+}
+
+/* ---- CARDS ---- */
+.card{
+  background:linear-gradient(145deg,#0a0e12,#11161d);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:28px;
+  position:relative;
+  overflow:hidden;
+  transition:all .35s ease;
+}
+
+.card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 0 25px rgba(57,255,20,0.15);
+}
+
+/* animated border glow */
+/* animated border glow */
+.card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:14px;
+  border:1px solid rgba(57,255,20,0.15);
+  opacity:0;
+  transition:.3s;
+  pointer-events: none; /* <--- ADD THIS LINE! */
+}
+
+.card:hover::after{
+  opacity:1;
+}
+
+/* ---- HEADINGS ---- */
+h2{
+  color:var(--nv);
+  letter-spacing:1px;
+}
+
+/* ---- UPLOAD AREA ---- */
+.upload-box{
+  border:2px dashed var(--line);
+  border-radius:12px;
+  padding:45px;
+  text-align:center;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.upload-box:hover{
+  border-color:var(--nv);
+  background:rgba(57,255,20,0.05);
+  transform:scale(1.02);
+}
+
+/* ---- PREVIEW ---- */
+.preview{
+  width:100%;
+  margin-top:15px;
+  border-radius:10px;
+  filter:grayscale(.2) contrast(1.1);
+}
+
+/* ---- RESULT ---- */
+.result-img{
+  width:100%;
+  border-radius:10px;
+  margin-top:12px;
+  filter:contrast(1.1);
+  animation:fadeIn .6s ease;
+}
+
+/* ---- DETECTION BADGE ---- */
+.badge{
+  display:inline-block;
+  padding:8px 16px;
+  margin-right:10px;
+  border-radius:30px;
+  font-weight:600;
+  border:1px solid rgba(57,255,20,0.4);
+  color:var(--nv);
+  background:rgba(57,255,20,0.08);
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%{box-shadow:0 0 6px rgba(57,255,20,.3)}
+  50%{box-shadow:0 0 18px rgba(57,255,20,.9)}
+  100%{box-shadow:0 0 6px rgba(57,255,20,.3)}
+}
+
+/* ---- HISTORY ---- */
+.history-item{
+  display:flex;
+  justify-content:space-between;
+  padding:12px;
+  border-bottom:1px solid var(--line);
+  transition:.25s;
+}
+
+.history-item:hover{
+  background:rgba(57,255,20,0.05);
+  transform:translateX(4px);
+}
+
+/* ---- FOOTER ---- */
+.footer{
+  text-align:center;
+  padding:30px;
+  border-top:1px solid var(--line);
+  color:var(--muted);
+}
+
+/* ---- FADE ---- */
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ---- RESPONSIVE ---- */
+@media(max-width:900px){
+  .container{
+    grid-template-columns:1fr;
+  }
+}
